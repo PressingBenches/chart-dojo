@@ -1,29 +1,3 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.js/dist/umd/supabase.js"></script><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Chart Dojo – Trading lernen</title>
-<style>
-:root{--bg:#f3f5ff;--cd:#fff;--tx:#141a38;--mu:#5b6494;--ac:#4f6bff;--g:#12a67a;--r:#e5445c;--bd:#dfe3f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0f22;--cd:#141b36;--tx:#e8ecff;--mu:#8f99c9;--ac:#7b93ff;--g:#22c997;--r:#ff5d73;--bd:#242d52}}
-:root[data-theme="dark"]{--bg:#0a0f22;--cd:#141b36;--tx:#e8ecff;--mu:#8f99c9;--ac:#7b93ff;--g:#22c997;--r:#ff5d73;--bd:#242d52}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
-#app{max-width:880px;margin:auto;padding:10px}.mu{color:var(--mu)}.s{font-size:12px}small{font-size:12px}
-.hero{text-align:center;padding:28px 10px;animation:pop .6s both}.hero h1{margin:0;font-size:34px;background:linear-gradient(90deg,var(--ac),var(--g),var(--ac));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite}
-@keyframes sh{to{background-position:200%}}@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.96)}}@keyframes grow{from{height:0}}@keyframes fl{to{opacity:0;transform:translate(-50%,-70px)}}@keyframes pu{50%{box-shadow:0 0 0 6px transparent}}
-.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:10px 0;animation:pop .4s both}
-.two,.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-input,select{width:100%;padding:10px;margin:4px 0;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
-.b{width:100%;padding:11px;margin:6px 0;border:0;border-radius:10px;background:var(--ac);color:#fff;font:600 15px inherit;cursor:pointer;transition:transform .15s}.b:active{transform:scale(.97)}.b:disabled{opacity:.7}
-.b.o{background:var(--bg);color:var(--tx);border:1px solid var(--bd)}.good{background:var(--g)!important;color:#fff!important}.bad{background:var(--r)!important;color:#fff!important}.er{color:var(--r);font-size:12px}
-.hh{display:flex;gap:12px;align-items:center}.hh b{flex:1}.hh span{background:var(--cd);border:1px solid var(--bd);padding:2px 10px;border-radius:99px;font-size:13px}.lo{background:none;border:0;color:var(--mu);font-size:18px}
-.xb,.pb{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0}.xb i,.pb i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--g));transition:width .8s}
-#nv{display:flex;gap:4px;overflow-x:auto;margin:8px 0}.tb{flex:1;min-width:62px;background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:6px 2px;color:var(--mu);font-size:18px;cursor:pointer}.tb span{display:block;font-size:10px}.tb.on{background:var(--ac);color:#fff;transform:translateY(-2px)}
-.les{cursor:pointer;text-align:center;transition:transform .2s}.les:hover{transform:translateY(-4px)}.les.ok{border-color:var(--g)}.em{font-size:30px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{padding:4px 10px;border-radius:99px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);font-size:12px;cursor:pointer}.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
-.cw{width:100%;overflow:hidden;border-radius:10px;background:var(--bg)}canvas{display:block;width:100%;touch-action:pan-y}.row{display:flex;justify-content:space-between}
-.res{padding:10px;border-radius:10px;margin:8px 0;border:1px solid var(--bd);animation:pop .4s both}.res.good{background:rgba(34,201,151,.15);color:var(--tx)!important}.res.bad{background:rgba(255,93,115,.15);color:var(--tx)!important}
-.bars{display:flex;gap:2px;height:150px;align-items:flex-end}.col{flex:1;text-align:center}.bw{height:120px;display:flex;align-items:flex-end}.bw i{width:100%;height:var(--h);border-radius:3px 3px 0 0;animation:grow .9s both}
-.tk{background:#7b93ff}.lo{}.bars .lo{background:#ffd166}.ny{background:#ff9f6b}.ov{background:var(--g)}.qt{background:var(--bd)}.now{outline:2px solid var(--tx);animation:pu 1.2s infinite}
-.fl{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);font:700 22px system-ui;color:var(--g);animation:fl 1s forwards;z-index:9;pointer-events:none}
-.pc{display:flex;gap:10px;align-items:center;margin:6px 0}.pc div{flex:1}.bd{display:inline-block;margin:3px;padding:4px 10px;border-radius:99px;background:var(--bd);font-size:12px;opacity:.5}.bd.on{opacity:1;background:var(--g);color:#fff}
-.j{border-top:1px solid var(--bd);padding:6px 0;font-size:13px}.bb{padding:9px 12px;border-radius:12px;margin:6px 0;max-width:92%;animation:pop .3s both;font-size:14px}.bb.u{background:var(--ac);color:#fff;margin-left:auto}.bb.a{background:var(--bg);border:1px solid var(--bd)}
 
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap");
 body{font-family:"Instrument Sans",system-ui,sans-serif}h1,h2,h3,.brand{font-family:"Bricolage Grotesque",system-ui,sans-serif}
@@ -41,7 +15,19 @@ body{font-family:"Instrument Sans",system-ui,sans-serif}h1,h2,h3,.brand{font-fam
 const $=s=>document.querySelector(s),E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e},esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
 const SB_URL='https://cjawubijjjxjmqkllglx.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqYXd1Ymlqamp4am1xa2xsZ2x4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1OTM5NzIsImV4cCI6MjEwODE2OTk3Mn0.YXVSTmdtY8pYX9-KR0eVamAy1FazYyf_eI_RiUy3reA',SB=(window.supabase&&!SB_URL.startsWith('DEINE'))?supabase.createClient(SB_URL,SB_KEY):null;
 let UID=null,Q={},qt=0;
-async function fq(){clearTimeout(qt);const r=Object.values(Q);Q={};if(SB&&UID&&r.length){const e=(await SB.from('dojo_data').upsert(r,{onConflict:'user_id,key'})).error;if(e)console.warn(e)}}
+
+async function fq(){
+  clearTimeout(qt);
+  const r=Object.values(Q);
+  Q={};
+  if(SB&&UID&&r.length){
+    // KORREKTUR: Fehler wird nun als 'dbError' deklariert und sicher ausgelesen
+    const { error: dbError } = await SB.from('dojo_data').upsert(r,{onConflict:'user_id,key'});
+    if(dbError) console.warn(dbError);
+  }
+}
+</script>
+
 addEventListener('pagehide',fq);
 const ST={g(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}if(SB&&UID&&k.startsWith('cd_')){Q[k]={user_id:UID,key:k,value:v};clearTimeout(qt);qt=setTimeout(fq,1200)}}};
 try{const t=localStorage.getItem('cd_theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
