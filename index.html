@@ -39,7 +39,7 @@ body{font-family:"Instrument Sans",system-ui,sans-serif}h1,h2,h3,.brand{font-fam
 @media(prefers-reduced-motion:reduce){.cn,.card,.hero{animation:none}}
 </style></head><body><div id="app"></div><script>
 const $=s=>document.querySelector(s),E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e},esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
-const SB_URL='https://cjawubijjjxjmqkllglx.supabase.co/rest/v1/',SB_KEY='sb_publishable_xTXCcP-tqVEfkhFb6ke2Tw_YgKpSH0s',SB=(window.supabase&&!SB_URL.startsWith('DEINE'))?supabase.createClient(SB_URL,SB_KEY):null;
+const SB_URL='https://cjawubijjjxjmqkllglx.supabase.co',SB_KEY='sb_publishable_xTXCcP-tqVEfkhFb6ke2Tw_YgKpSH0s',SB=(window.supabase&&!SB_URL.startsWith('DEINE'))?supabase.createClient(SB_URL,SB_KEY):null;
 let UID=null,Q={},qt=0;
 async function fq(){clearTimeout(qt);const r=Object.values(Q);Q={};if(SB&&UID&&r.length){const e=(await SB.from('dojo_data').upsert(r,{onConflict:'user_id,key'})).error;if(e)console.warn(e)}}
 addEventListener('pagehide',fq);
