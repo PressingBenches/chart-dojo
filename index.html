@@ -2,31 +2,49 @@
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap");
 body{font-family:"Instrument Sans",system-ui,sans-serif}h1,h2,h3,.brand{font-family:"Bricolage Grotesque",system-ui,sans-serif}
 .tg{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}.tg:focus-visible,.b:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-.lgw{display:grid;grid-template-columns:1.1fr 1fr;min-height:calc(100vh - 20px);gap:0;border:1px solid var(--bd);border-radius:22px;overflow:hidden;background:var(--cd)}
-.lgl{padding:44px 40px;display:flex;flex-direction:column;gap:14px;justify-content:center;background:linear-gradient(160deg,color-mix(in srgb,var(--ac) 16%,var(--cd)),var(--cd) 70%)}
-.brand{font-weight:800;font-size:20px;color:var(--ac)}.lgl h1{margin:0;font-size:clamp(30px,4.4vw,46px);line-height:1.05;letter-spacing:-.02em;max-width:14ch}.lgl p{margin:0;color:var(--mu);max-width:42ch}
-.art{width:100%;max-width:400px;margin:10px 0}.cn{transform-box:fill-box;transform-origin:bottom;animation:cg .7s cubic-bezier(.2,.8,.2,1) both}@keyframes cg{from{transform:scaleY(0);opacity:0}}
-.lgr{padding:28px 40px;display:flex;flex-direction:column;justify-content:center}.tgw{align-self:flex-end;margin-bottom:10px}
-.lgf{display:flex;flex-direction:column;gap:10px;max-width:380px;width:100%;margin:auto}.lgf h2{margin:0 0 4px;font-size:28px}.lgf label{font-size:13px;color:var(--mu);display:block}.lgf input{margin-top:5px;padding:12px;font-size:15px}
-.note{font-size:13px;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--ac) 12%,transparent);border:1px solid var(--bd)}.sw{font-size:14px;color:var(--mu);margin:2px 0}.sw a{color:var(--ac);font-weight:600}
-@media(max-width:760px){.lgw{grid-template-columns:1fr}.lgl{padding:28px 22px}.lgr{padding:20px 22px 30px}.lgl h1{max-width:none}}
-@media(prefers-reduced-motion:reduce){.cn,.card,.hero{animation:none}}
-</style></head><body><div id="app"></div><script>
+
+/* User-Wechsel-Leiste oben auf der Seite */
+.user-switcher { display: flex; gap: 10px; margin-bottom: 15px; padding: 10px; background: var(--cd); border: 1px solid var(--bd); border-radius: 12px; align-items: center; }
+.user-btn { flex: 1; padding: 8px; border: 1px solid var(--bd); background: var(--bg); color: var(--tx); border-radius: 8px; cursor: pointer; font-weight: 600; }
+.user-btn.active { background: var(--ac); color: #fff; border-color: var(--ac); }
+</style></head><body>
+
+  <!-- Profil-Auswahl direkt über der App -->
+  <div class="user-switcher">
+    <span style="color:var(--mu); font-size:12px;">Aktiver Account:</span>
+    <button class="user-btn" id="btn-mg" onclick="switchUser('MG')">MG</button>
+    <button class="user-btn" id="btn-burcu" onclick="switchUser('B.urc.U')">B.urc.U</button>
+  </div>
+
+<div id="app"></div><script>
 const $=s=>document.querySelector(s),E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e},esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
 const SB_URL='https://cjawubijjjxjmqkllglx.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqYXd1Ymlqamp4am1xa2xsZ2x4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1OTM5NzIsImV4cCI6MjEwODE2OTk3Mn0.YXVSTmdtY8pYX9-KR0eVamAy1FazYyf_eI_RiUy3reA',SB=(window.supabase&&!SB_URL.startsWith('DEINE'))?supabase.createClient(SB_URL,SB_KEY):null;
-let UID=null,Q={},qt=0;
 
-async function fq(){
+// ÄNDERUNG: UID startet direkt mit 'MG', damit kein Login nötig ist
+let UID='MG',Q={},qt=0;
+
+// ÄNDERUNG: Funktion um fliegend zwischen den beiden lokalen Usern zu wechseln
+function switchUser(userName) {
+  UID = userName;
+  $('#btn-mg').classList.toggle('active', userName === 'MG');
+  $('#btn-burcu').classList.toggle('active', userName === 'B.urc.U');
+  console.log("Speicher-Profil gewechselt zu:", UID);
+}
+
+async function fq()){
   clearTimeout(qt);
   const r=Object.values(Q);
   Q={};
   if(SB&&UID&&r.length){
-    // KORREKTUR: Fehler wird nun als 'dbError' deklariert und sicher ausgelesen
     const { error: dbError } = await SB.from('dojo_data').upsert(r,{onConflict:'user_id,key'});
     if(dbError) console.warn(dbError);
   }
 }
+
+// Initialisiere die Button-Anzeige für den ersten User direkt beim Start
+switchUser('MG');
 </script>
+
 
 addEventListener('pagehide',fq);
 const ST={g(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}if(SB&&UID&&k.startsWith('cd_')){Q[k]={user_id:UID,key:k,value:v};clearTimeout(qt);qt=setTimeout(fq,1200)}}};
