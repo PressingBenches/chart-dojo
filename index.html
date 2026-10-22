@@ -1,53 +1,45 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Chart Dojo – Trading lernen</title>
+<style>
+:root{--bg:#f3f5ff;--cd:#fff;--tx:#141a38;--mu:#5b6494;--ac:#4f6bff;--g:#12a67a;--r:#e5445c;--bd:#dfe3f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0f22;--cd:#141b36;--tx:#e8ecff;--mu:#8f99c9;--ac:#7b93ff;--g:#22c997;--r:#ff5d73;--bd:#242d52}}
+:root[data-theme="dark"]{--bg:#0a0f22;--cd:#141b36;--tx:#e8ecff;--mu:#8f99c9;--ac:#7b93ff;--g:#22c997;--r:#ff5d73;--bd:#242d52}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+#app{max-width:880px;margin:auto;padding:10px}.mu{color:var(--mu)}.s{font-size:12px}small{font-size:12px}
+.hero{text-align:center;padding:28px 10px;animation:pop .6s both}.hero h1{margin:0;font-size:34px;background:linear-gradient(90deg,var(--ac),var(--g),var(--ac));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite}
+@keyframes sh{to{background-position:200%}}@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.96)}}@keyframes grow{from{height:0}}@keyframes fl{to{opacity:0;transform:translate(-50%,-70px)}}@keyframes pu{50%{box-shadow:0 0 0 6px transparent}}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:10px 0;animation:pop .4s both}
+.two,.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+input,select{width:100%;padding:10px;margin:4px 0;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.b{width:100%;padding:11px;margin:6px 0;border:0;border-radius:10px;background:var(--ac);color:#fff;font:600 15px inherit;cursor:pointer;transition:transform .15s}.b:active{transform:scale(.97)}.b:disabled{opacity:.7}
+.b.o{background:var(--bg);color:var(--tx);border:1px solid var(--bd)}.good{background:var(--g)!important;color:#fff!important}.bad{background:var(--r)!important;color:#fff!important}.er{color:var(--r);font-size:12px}
+.hh{display:flex;gap:12px;align-items:center}.hh b{flex:1}.hh span{background:var(--cd);border:1px solid var(--bd);padding:2px 10px;border-radius:99px;font-size:13px}.lo{background:none;border:0;color:var(--mu);font-size:18px}
+.xb,.pb{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0}.xb i,.pb i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--g));transition:width .8s}
+#nv{display:flex;gap:4px;overflow-x:auto;margin:8px 0}.tb{flex:1;min-width:62px;background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:6px 2px;color:var(--mu);font-size:18px;cursor:pointer}.tb span{display:block;font-size:10px}.tb.on{background:var(--ac);color:#fff;transform:translateY(-2px)}
+.les{cursor:pointer;text-align:center;transition:transform .2s}.les:hover{transform:translateY(-4px)}.les.ok{border-color:var(--g)}.em{font-size:30px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chip{padding:4px 10px;border-radius:99px;border:1px solid var(--bd);background:var(--bg);color:var(--mu);font-size:12px;cursor:pointer}.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.cw{width:100%;overflow:hidden;border-radius:10px;background:var(--bg)}canvas{display:block;width:100%;touch-action:pan-y}.row{display:flex;justify-content:space-between}
+.res{padding:10px;border-radius:10px;margin:8px 0;border:1px solid var(--bd);animation:pop .4s both}.res.good{background:rgba(34,201,151,.15);color:var(--tx)!important}.res.bad{background:rgba(255,93,115,.15);color:var(--tx)!important}
+.bars{display:flex;gap:2px;height:150px;align-items:flex-end}.col{flex:1;text-align:center}.bw{height:120px;display:flex;align-items:flex-end}.bw i{width:100%;height:var(--h);border-radius:3px 3px 0 0;animation:grow .9s both}
+.tk{background:#7b93ff}.lo{}.bars .lo{background:#ffd166}.ny{background:#ff9f6b}.ov{background:var(--g)}.qt{background:var(--bd)}.now{outline:2px solid var(--tx);animation:pu 1.2s infinite}
+.fl{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);font:700 22px system-ui;color:var(--g);animation:fl 1s forwards;z-index:9;pointer-events:none}
+.pc{display:flex;gap:10px;align-items:center;margin:6px 0}.pc div{flex:1}.bd{display:inline-block;margin:3px;padding:4px 10px;border-radius:99px;background:var(--bd);font-size:12px;opacity:.5}.bd.on{opacity:1;background:var(--g);color:#fff}
+.j{border-top:1px solid var(--bd);padding:6px 0;font-size:13px}.bb{padding:9px 12px;border-radius:12px;margin:6px 0;max-width:92%;animation:pop .3s both;font-size:14px}.bb.u{background:var(--ac);color:#fff;margin-left:auto}.bb.a{background:var(--bg);border:1px solid var(--bd)}
 
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&display=swap");
 body{font-family:"Instrument Sans",system-ui,sans-serif}h1,h2,h3,.brand{font-family:"Bricolage Grotesque",system-ui,sans-serif}
 .tg{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:var(--cd);color:var(--tx);cursor:pointer}.tg:focus-visible,.b:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-
-/* User-Wechsel-Leiste oben auf der Seite */
-.user-switcher { display: flex; gap: 10px; margin-bottom: 15px; padding: 10px; background: var(--cd); border: 1px solid var(--bd); border-radius: 12px; align-items: center; }
-.user-btn { flex: 1; padding: 8px; border: 1px solid var(--bd); background: var(--bg); color: var(--tx); border-radius: 8px; cursor: pointer; font-weight: 600; }
-.user-btn.active { background: var(--ac); color: #fff; border-color: var(--ac); }
-</style></head><body>
-
-  <!-- Profil-Auswahl direkt über der App -->
-  <div class="user-switcher">
-    <span style="color:var(--mu); font-size:12px;">Aktiver Account:</span>
-    <button class="user-btn" id="btn-mg" onclick="switchUser('MG')">MG</button>
-    <button class="user-btn" id="btn-burcu" onclick="switchUser('B.urc.U')">B.urc.U</button>
-  </div>
-
-<div id="app"></div><script>
+.lgw{display:grid;grid-template-columns:1.1fr 1fr;min-height:calc(100vh - 20px);gap:0;border:1px solid var(--bd);border-radius:22px;overflow:hidden;background:var(--cd)}
+.lgl{padding:44px 40px;display:flex;flex-direction:column;gap:14px;justify-content:center;background:linear-gradient(160deg,color-mix(in srgb,var(--ac) 16%,var(--cd)),var(--cd) 70%)}
+.brand{font-weight:800;font-size:20px;color:var(--ac)}.lgl h1{margin:0;font-size:clamp(30px,4.4vw,46px);line-height:1.05;letter-spacing:-.02em;max-width:14ch}.lgl p{margin:0;color:var(--mu);max-width:42ch}
+.art{width:100%;max-width:400px;margin:10px 0}.cn{transform-box:fill-box;transform-origin:bottom;animation:cg .7s cubic-bezier(.2,.8,.2,1) both}@keyframes cg{from{transform:scaleY(0);opacity:0}}
+.lgr{padding:28px 40px;display:flex;flex-direction:column;justify-content:center}.tgw{align-self:flex-end;margin-bottom:10px}
+.lgf{display:flex;flex-direction:column;gap:10px;max-width:380px;width:100%;margin:auto}.lgf h2{margin:0 0 4px;font-size:28px}.lgf label{font-size:13px;color:var(--mu);display:block}.lgf input{margin-top:5px;padding:12px;font-size:15px}
+.note{font-size:13px;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--ac) 12%,transparent);border:1px solid var(--bd)}.sw{font-size:14px;color:var(--mu);margin:2px 0}.sw a{color:var(--ac);font-weight:600}
+@media(max-width:760px){.lgw{grid-template-columns:1fr}.lgl{padding:28px 22px}.lgr{padding:20px 22px 30px}.lgl h1{max-width:none}}
+@media(prefers-reduced-motion:reduce){.cn,.card,.hero{animation:none}}
+</style></head><body><div id="app"></div><script>
 const $=s=>document.querySelector(s),E=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e},esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
-const SB_URL='https://cjawubijjjxjmqkllglx.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNqYXd1Ymlqamp4am1xa2xsZ2x4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1OTM5NzIsImV4cCI6MjEwODE2OTk3Mn0.YXVSTmdtY8pYX9-KR0eVamAy1FazYyf_eI_RiUy3reA',SB=(window.supabase&&!SB_URL.startsWith('DEINE'))?supabase.createClient(SB_URL,SB_KEY):null;
-
-// ÄNDERUNG: UID startet direkt mit 'MG', damit kein Login nötig ist
-let UID='MG',Q={},qt=0;
-
-// ÄNDERUNG: Funktion um fliegend zwischen den beiden lokalen Usern zu wechseln
-function switchUser(userName) {
-  UID = userName;
-  $('#btn-mg').classList.toggle('active', userName === 'MG');
-  $('#btn-burcu').classList.toggle('active', userName === 'B.urc.U');
-  console.log("Speicher-Profil gewechselt zu:", UID);
-}
-
-async function fq()){
-  clearTimeout(qt);
-  const r=Object.values(Q);
-  Q={};
-  if(SB&&UID&&r.length){
-    const { error: dbError } = await SB.from('dojo_data').upsert(r,{onConflict:'user_id,key'});
-    if(dbError) console.warn(dbError);
-  }
-}
-
-// Initialisiere die Button-Anzeige für den ersten User direkt beim Start
-switchUser('MG');
-</script>
-
-
-addEventListener('pagehide',fq);
-const ST={g(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}if(SB&&UID&&k.startsWith('cd_')){Q[k]={user_id:UID,key:k,value:v};clearTimeout(qt);qt=setTimeout(fq,1200)}}};
+const ST={g(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 try{const t=localStorage.getItem('cd_theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
 function tgl(){const d=document.documentElement,c=d.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c=='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('cd_theme',n)}catch(e){}D?shell():login()}
 const TB='<button class="tg" onclick="tgl()" aria-label="Hell/Dunkel umschalten"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>';
@@ -124,16 +116,12 @@ function conf(){const c=E('canvas');c.style.cssText='position:fixed;inset:0;poin
 function add(n){D.xp+=n;D.wk[wk()]=(D.wk[wk()]||0)+n;fl('+'+n+' XP');ST.s('cd_d'+U,D);head()}
 function head(){const L=Math.floor(Math.sqrt(D.xp/50))+1,a=50*(L-1)**2,b=50*L*L;$('#hd').innerHTML=`<div class="hh"><b>👤 ${esc(ST.g('cd_p'+U).n)}</b><span>Lvl ${L}</span><span>🔥 ${D.streak}</span>${TB}<button class="lo" onclick="logout()" aria-label="Abmelden">⎋</button></div><div class="xb"><i style="width:${(D.xp-a)/(b-a)*100}%"></i></div><small class="mu">${D.xp} XP · noch ${b-D.xp} bis Lvl ${L+1}</small>`}
 function art(){const C=[[40,52],[52,46],[46,62],[62,58],[58,74],[74,66],[66,72],[72,90],[90,82],[82,98],[98,94],[94,112]];return '<svg class="art" viewBox="0 0 370 200" aria-hidden="true">'+C.map(([o,c],k)=>{const x=k*30+12,Y=v=>190-v*1.5,u=c>=o;return `<g class="cn" style="animation-delay:${k*70}ms;fill:var(${u?'--g':'--r'});stroke:var(${u?'--g':'--r'})"><path d="M${x+8} ${Y(Math.max(o,c)+7)}V${Y(Math.min(o,c)-6)}" stroke-width="2"/><rect x="${x}" y="${Y(Math.max(o,c))}" width="16" height="${Math.max(3,Math.abs(Y(o)-Y(c)))}" rx="2"/></g>`}).join('')+'</svg>'}
-let LM='in';
-function login(){clr();U=-1;D=null;$('#app').innerHTML=`<div class="lgw"><section class="lgl"><div class="brand">Chart Dojo</div><h1>Charts lesen lernen, bevor es Geld kostet.</h1><p>Simulierte Märkte, Quiz, Journal und ein Coach, der dich da abholt, wo du hängst.</p>${art()}<small>Reines Lernmaterial, keine Anlageberatung. Alle Charts sind simuliert.</small></section><section class="lgr"><div class="tgw">${TB}</div><form class="lgf" id="lf"><h2>${LM=='in'?'Willkommen zurück':'Konto erstellen'}</h2>${SB?'':'<div class="note">Supabase ist noch nicht verbunden (siehe Anleitung). Du kannst lokal testen, Daten bleiben dann nur in diesem Browser.</div>'}${LM=='up'?'<label>Name<input id="nm" autocomplete="nickname" placeholder="Wie sollen wir dich nennen?"></label>':''}<label>E-Mail<input id="em" type="email" autocomplete="email" placeholder="du@beispiel.de"></label><label>Passwort<input id="pw" type="password" autocomplete="${LM=='in'?'current-password':'new-password'}" placeholder="Mindestens 6 Zeichen"></label><button class="b" id="go" ${SB?'':'disabled'}>${LM=='in'?'Anmelden':'Konto erstellen'}</button><div class="er" id="er" role="alert"></div><p class="sw">${LM=='in'?'Noch kein Konto?':'Schon registriert?'} <a href="#" id="sw">${LM=='in'?'Registrieren':'Anmelden'}</a></p>${SB?'':'<button type="button" class="b o" id="lc">Lokal ohne Konto testen</button>'}</form></section></div>`;
- $('#sw').onclick=e=>{e.preventDefault();LM=LM=='in'?'up':'in';login()};if($('#lc'))$('#lc').onclick=()=>{if(!ST.g('cd_p0'))ST.s('cd_p0',{n:'Gast'});start(0)};
- $('#lf').onsubmit=async e=>{e.preventDefault();if(!SB)return;const em=$('#em').value.trim(),pw=$('#pw').value,er=$('#er'),b=$('#go');er.textContent='';if(!em||pw.length<6){er.textContent='Bitte E-Mail und ein Passwort mit mindestens 6 Zeichen eingeben.';return}b.disabled=1;
-  const r=LM=='up'?await SB.auth.signUp({email:em,password:pw,options:{data:{name:($('#nm').value||'').trim()||em.split('@')[0]}}}):await SB.auth.signInWithPassword({email:em,password:pw});b.disabled=0;
-  if(r.error){er.textContent=r.error.message=='Invalid login credentials'?'E-Mail oder Passwort stimmt nicht.':r.error.message;return}
-  if(!r.data.session){er.textContent='Fast geschafft: Bestätige den Link in deiner E-Mail und melde dich dann an.';return}enter(r.data.session)}}
-async function enter(s){UID=s.user.id;const {data,error}=await SB.from('dojo_data').select('key,value');if(error){console.warn(error)}Object.keys(localStorage).filter(k=>k.startsWith('cd_')&&k!='cd_theme').forEach(k=>localStorage.removeItem(k));(data||[]).forEach(r=>localStorage.setItem(r.key,JSON.stringify(r.value)));ST.s('cd_p0',{n:(s.user.user_metadata&&s.user.user_metadata.name)||s.user.email.split('@')[0]});start(0)}
-async function logout(){await fq();if(SB)await SB.auth.signOut();UID=null;login()}
-async function boot(){if(SB){const {data}=await SB.auth.getSession();if(data.session)return enter(data.session)}login()}
+function login(){clr();U=-1;D=null;let N=ST.g('cd_names');if(!N)N=[0,1].map(i=>(ST.g('cd_p'+i)||{}).n||'');const nm=N.filter(Boolean);
+ $('#app').innerHTML=`<div class="lgw"><section class="lgl"><div class="brand">Chart Dojo</div><h1>Charts lesen lernen, bevor es Geld kostet.</h1><p>Simulierte Märkte, Quiz, Journal und ein Coach, der dich da abholt, wo du hängst.</p>${art()}<small>Reines Lernmaterial, keine Anlageberatung. Alle Charts sind simuliert.</small></section><section class="lgr"><div class="tgw">${TB}</div><form class="lgf" id="lf"><h2>Los geht's</h2><label>Dein Name<input id="nm" autocomplete="nickname" maxlength="24" placeholder="Wie sollen wir dich nennen?"></label><button class="b" id="go">Starten</button><div class="er" id="er" role="alert"></div>${nm.length?'<small class="mu">Weiter als:</small><div class="chips" id="pf"></div>':''}<small class="mu">Dein Fortschritt wird nur in diesem Browser gespeichert.</small></form></section></div>`;
+ const go=name=>{name=name.trim();if(!name){$('#er').textContent='Bitte gib einen Namen ein.';return}let i=N.findIndex(x=>x.toLowerCase()==name.toLowerCase());if(i<0){i=N.indexOf('');if(i<0)i=N.length;N[i]=name}ST.s('cd_names',N);ST.s('cd_p'+i,{n:N[i]});start(i)};
+ nm.forEach(n=>{const c=E('span','chip',esc(n));c.onclick=()=>go(n);$('#pf').append(c)});$('#lf').onsubmit=e=>{e.preventDefault();go($('#nm').value)}}
+function logout(){login()}
+function boot(){login()}
 function start(i){U=i;D=ST.g('cd_d'+i)||{xp:0,streak:0,last:'',wk:{},done:{},w:{},st:{n:0,ok:0},cn:0,j:[],ind:['ema20','ema50','rsi','vol'],fvg:1};D.q=D.q||{};D.iv=D.iv||{};D.cc=D.cc||0;D.ex=D.ex||{u:0,r:[]};D.v=3;const t=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString();if(D.last!==t){D.streak=D.last===y?D.streak+1:1;D.last=t}ST.s('cd_d'+i,D);tab='learn';shell()}
 function shell(){clr();$('#app').innerHTML='<div id="hd"></div><nav id="nv"></nav><main id="mn"></main>';[['learn','📚','Lernen'],['train','🎯','Trainer'],['candle','🕯️','Kerzen'],['time','🕒','Zeiten'],['jour','📓','Journal'],['prog','🏆','Fortschritt']].concat([['quiz','🧠','Quiz']]).concat([['ind','📊','Indikatoren'],['exam','🎓','Prüfung']]).concat([['chat','💬','Coach']]).forEach(([k,i,t])=>{const b=E('button','tb'+(k==tab?' on':''),i+'<span>'+t+'</span>');b.onclick=()=>{tab=k;shell()};$('#nv').append(b)});head();({learn:vLearn,train:vTrain,candle:vCandle,quiz:vQuiz,ind:vInd,exam:vExam,chat:vChat,time:vTime,jour:vJour,prog:vProg})[tab]()}
 function vLearn(){const n=Object.keys(D.done).length;$('#mn').innerHTML=`<div class="card"><h3>Dein Lernpfad</h3><p class="mu">Methode aus Erfahrungsberichten: erst Grundlagen ohne Geld, dann Replay/Backtesting mit festem Plan, jede Entscheidung journalen, kurze fokussierte Sessions.</p><div class="pb"><i style="width:${n/LES.length*100}%"></i></div><small>${n}/${LES.length} Lektionen</small></div>${coach()}<div class="grid" id="ls"></div><div id="ld"></div>`;
@@ -263,7 +251,7 @@ function vChat(){const h=D.chat=D.chat||[];$('#mn').innerHTML=`<div class='card'
  if(!h.length)bub({r:'a',t:'Hallo! Sag mir, wobei du hängst. Je genauer (Indikator, Chart-Situation, was du erwartet hast), desto gezielter kann ich helfen.'});h.forEach(bub);$('#cs').onclick=()=>send($('#ci').value);$('#ci').onkeydown=e=>{if(e.key=='Enter')send($('#ci').value)}}
 async function send(t){t=String(t||'').trim().slice(0,600);if(!t||CH)return;const h=D.chat=D.chat||[],ce=$('#ce');ce.textContent='';
  CH=1;$('#ci').value='';const um={r:'u',t};h.push(um);bub(um);const el=bub({r:'a',t:'...'});let ms=h.slice(-8).map(m=>({role:m.r=='u'?'user':'assistant',content:m.t}));while(ms.length&&ms[0].role!='user')ms.shift();
- try{const tk=SB?((await SB.auth.getSession()).data.session||{}).access_token||'':'local';const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+tk},body:JSON.stringify({system:SYSC+'\n\n'+coachCtx(),messages:ms})});const j=await res.json().catch(()=>({}));if(!res.ok||!j.text)throw new Error(j.error||('Status '+res.status));
+ try{const tk='local';const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+tk},body:JSON.stringify({system:SYSC+'\n\n'+coachCtx(),messages:ms})});const j=await res.json().catch(()=>({}));if(!res.ok||!j.text)throw new Error(j.error||('Status '+res.status));
   el.innerHTML=md(j.text);h.push({r:'a',t:j.text});if(h.length>30)h.splice(0,h.length-30);D.cq=(D.cq||0)+1;if(D.cq<=10)add(3);ST.s('cd_d'+U,D)}
  catch(e){el.innerHTML=md('Der Coach hat nicht geantwortet: '+e.message+'. Prüfe in der Anleitung die Cloudflare-Variablen (Schritt Coach).');h.pop()}
  CH=0}
